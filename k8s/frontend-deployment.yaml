@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: my-app  # Add the namespace here
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: react-frontend
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        env:            # Add environment variable
+        - name: REACT_APP_BACKEND_URL
+          value: "http://backend:3000"
